@@ -40,7 +40,7 @@ public class JobData {
                 values.add(aValue);
             }
         }
-
+        Collections.sort(values);
         return values;
     }
 
@@ -49,7 +49,11 @@ public class JobData {
         // load data, if not already loaded
         loadData();
 
-        return allJobs;
+        ArrayList<HashMap<String, String>> allJobsCopy = new ArrayList<>(allJobs.size());
+        for (HashMap<String, String> jobs: allJobs) {
+            allJobsCopy.add((HashMap<String, String>)jobs.clone());
+        }
+        return allJobsCopy;
     }
 
     /**
@@ -74,7 +78,6 @@ public class JobData {
 
             for(Map.Entry<String, String> column: row.entrySet()){
                 if (column.getValue().toUpperCase().contains(value.toUpperCase())) {
-                    System.out.println(row);
                     if(jobs.contains(row)){
                         continue;
                     }
